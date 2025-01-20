@@ -33,8 +33,19 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ci]
     steps:
+      - name: obtain project code
+        uses: actions/checkout@v4
+        
       - name: authenticate on AWS
         run: echo "executing the aws configure command"
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+        
       - name: configure kubectl
         run: echo "executing aws eks update-kubeconfig command"
       - name: manifest deployment on kubernetes
