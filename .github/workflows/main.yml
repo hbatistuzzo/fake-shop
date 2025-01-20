@@ -1,0 +1,27 @@
+name: CI-CD # obligatory
+
+on: # the event that needs to be triggered to initiate the workflow automation
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: authenticate on Docker Hub
+        run: echo "executing the Docker Login command"
+      - name: Docker Image construction
+        run: echo "executing Docker Build command"
+      - name: Docker Image upload
+        run: echo "executing Docker Build push"
+
+  cd:
+    runs-on: ubuntu-latest
+    steps:
+      - name: authenticate on AWS
+        run: echo "executing the aws configure command"
+      - name: configure kubectl
+        run: echo "executing aws eks update-kubeconfig command"
+      - name: manifest deployment on kubernetes
+        run: echo "executing kubectl apply command"
