@@ -9,6 +9,15 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
+      - name: obtain project code
+        uses: actions/checkout@v4
+        
+      - name: Authenticate in Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
       - name: authenticate on Docker Hub
         run: echo "executing the Docker Login command"
       - name: Docker Image construction
